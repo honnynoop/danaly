@@ -39,7 +39,7 @@
 
 ### 2-1. 타겟 클래스 분포
 
-![타겟 클래스 분포](fig1_dist.png)
+![타겟 클래스 분포](ir_fig1_dist.png)
 
 > **해석:** 세 종이 각 50개로 **완벽한 균형(Balanced)** 데이터입니다.  
 > Penguins와 달리 클래스 불균형 문제가 없어 `stratify` 없이도 균등 분할 가능하지만,  
@@ -47,7 +47,7 @@
 
 ### 2-2. 종별 신체 특성 비교
 
-![종별 신체 특성 비교](fig2_species.png)
+![종별 신체 특성 비교](ir_fig2_species.png)
 
 > **해석:**
 > - **Setosa**: 꽃잎이 매우 작음 (길이 ~1.46cm, 폭 ~0.24cm) → 다른 두 종과 쉽게 분리
@@ -56,7 +56,7 @@
 
 ### 2-3. 산점도 — 종별 분포 시각화
 
-![산점도 핵심 피처](fig3_scatter.png)
+![산점도 핵심 피처](ir_fig3_scatter.png)
 
 > **해석:**
 > - **꽃잎(petal) 피처 쌍** (왼쪽): setosa가 완전 분리, versicolor/virginica 경계가 뚜렷
@@ -76,7 +76,7 @@
 
 ## 3. 전처리 파이프라인
 
-![전처리 파이프라인](fig8_pipeline.png)
+![전처리 파이프라인](ir_fig8_pipeline.png)
 
 ```python
 from sklearn.datasets import load_iris
@@ -165,7 +165,7 @@ for name, (model, scaled) in models.items():
 
 ### 5-1. 모델 성능 비교
 
-![모델 성능 비교](fig4_models.png)
+![모델 성능 비교](ir_fig4_models.png)
 
 | 모델 | CV 평균 정확도 | CV 표준편차 | 테스트 정확도 |
 |------|:---:|:---:|:---:|
@@ -180,7 +180,7 @@ for name, (model, scaled) in models.items():
 
 ### 5-2. Confusion Matrix (Random Forest)
 
-![Confusion Matrix](fig5_cm.png)
+![Confusion Matrix](ir_fig5_cm.png)
 
 ```
 예측 →         Setosa  Versicolor  Virginica
@@ -196,7 +196,7 @@ for name, (model, scaled) in models.items():
 
 ### 5-3. Precision / Recall / F1
 
-![Precision Recall F1](fig7_prf.png)
+![Precision Recall F1](ir_fig7_prf.png)
 
 | 클래스 | Precision | Recall | F1-score | Support |
 |--------|:---------:|:------:|:--------:|:-------:|
@@ -215,17 +215,17 @@ for name, (model, scaled) in models.items():
 
 ## 6. 피처 중요도 분석
 
-![피처 중요도](fig6_fi.png)
+![피처 중요도](ir_fig6_fi.png)
 
 | 순위 | 피처 | 중요도 | 해석 |
 |:----:|------|:------:|------|
-| 🥇 1 | `petal_width_cm` (꽃잎 폭) | **43.7%** | 종 분리의 핵심 — setosa는 0.24cm, virginica는 2.03cm |
-| 🥈 2 | `petal_length_cm` (꽃잎 길이) | **43.2%** | 꽃잎 폭과 함께 핵심 피처 쌍 |
+| 🥇 1 | `petal_length_cm` (꽃잎 길이) | **43.7%** | 종 분리의 핵심 피처 |
+| 🥈 2 | `petal_width_cm` (꽃잎 폭) | **43.1%** | 꽃잎 길이와 함께 핵심 피처 쌍 |
 | 🥉 3 | `sepal_length_cm` (꽃받침 길이) | 11.6% | 보조적 역할 |
 | 4 | `sepal_width_cm` (꽃받침 폭) | **1.5%** | 종 분류에 거의 기여 안 함 |
 
 > **산점도 분석과 일치:**  
-> 꽃잎(petal) 두 피처가 86.9%의 중요도를 차지 →  
+> 꽃잎(petal) 두 피처가 86.8%의 중요도를 차지 →  
 > 꽃받침(sepal) 피처는 보조적 역할만 수행함을 확인할 수 있습니다.
 
 ---
@@ -239,7 +239,7 @@ for name, (model, scaled) in models.items():
 | **클래스 균형** | 불균형 (44:20:36%) | **완벽 균형** (33:33:33%) |
 | **최고 테스트 정확도** | **100%** (LR·RF·SVM) | **96.67%** (SVM·GB) |
 | **분류 난이도** | 쉬움 (종간 차이 뚜렷) | **중간** (versicolor↔virginica 경계 존재) |
-| **핵심 피처** | 부리 길이 (39.1%) | 꽃잎 폭+길이 (86.9%) |
+| **핵심 피처** | 부리 길이 (39.1%) | 꽃잎 길이+폭 (86.8%) |
 | **최적 모델** | 모든 모델 동등 | **SVM (RBF)** 권장 |
 
 ---
@@ -315,7 +315,7 @@ for f, imp in fi:
 📌 문제:     붓꽃 신체 측정값 4개로 3종 자동 분류
 📌 데이터:   150행 × 4 피처 (결측치 없음, 클래스 균형)
 📌 최고 성능: SVM (RBF) / Gradient Boosting → 테스트 96.67%
-📌 핵심 피처: 꽃잎 폭(43.7%) + 꽃잎 길이(43.2%) = 86.9% 집중
+📌 핵심 피처: 꽃잎 길이(43.7%) + 꽃잎 폭(43.1%) = 86.8% 집중
 
 📌 교훈:
    ✅ Setosa는 꽃잎 크기가 달라 어떤 모델도 완벽 분류 가능
